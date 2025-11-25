@@ -1,0 +1,14 @@
+WITH order_counts AS (
+    SELECT
+        customer_number,
+        COUNT(*) AS cnt
+    FROM Orders
+    GROUP BY customer_number
+),
+max_cnt AS (
+    SELECT MAX(cnt) AS max_cnt FROM order_counts
+)
+SELECT customer_number
+FROM order_counts
+JOIN max_cnt
+  ON order_counts.cnt = max_cnt.max_cnt;
